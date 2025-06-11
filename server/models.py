@@ -16,6 +16,16 @@ class Earthquake(db.Model, SerializerMixin):
     location = db.Column(db.String(255), nullable=False)
     year = db.Column(db.Integer, nullable=False)
 
+
+    @property
+    def serialize(self):
+        return {
+            "id": self.id,
+            "location": self.location,
+            "magnitude": self.magnitude,
+            "year": self.year
+        }
+
     serialize_rules = ('-id',)  # Exclude id from serialization
     def __repr__(self):
         return f"<Earthquake {self.magnitude} at {self.location} on {self.year}>"
